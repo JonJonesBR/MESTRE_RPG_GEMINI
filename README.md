@@ -1,11 +1,13 @@
 # Mestre de RPG Dinâmico com Google Gemini
 
-Bem-vindo ao Mestre de RPG Dinâmico! Este projeto é um jogo de RPG (Role-Playing Game) baseado em texto onde a API Google Gemini atua como o Mestre do Jogo (Game Master - GM), criando narrativas interativas e adaptáveis em tempo real. Prepare-se para aventuras únicas a cada jogada!
+Bem-vindo ao Mestre de RPG Dinâmico! Este projeto é um jogo de RPG (Role-Playing Game) baseado em texto onde a API Google Gemini atua como o Mestre do Jogo (Game Master - GM), criando narrativas interativas e adaptáveis em tempo real. Prepare-se para aventuras únicas a cada jogada, agora com narração em voz alta!
 
 ## Funcionalidades Principais
 
 * **Mestre Inteligente (IA):** Utiliza o poder da Google Gemini para gerar descrições de cenários, NPCs (personagens não-jogadores), desafios e consequências das ações do jogador de forma dinâmica.
-* **Criação de Personagem:** Permite ao jogador definir o nome e a classe do seu aventureiro.
+* **Geração Aleatória de Início de Aventura:** Objetivo, localização e inventário iniciais são criados pela IA para maior rejogabilidade e surpresa a cada nova partida.
+* **Criação de Personagem Flexível:** Permite ao jogador definir o nome e escolher uma classe de uma lista pré-definida ou **inventar a sua própria classe personalizada**.
+* **Narração em Áudio (Text-to-Speech):** As principais narrações do Mestre e mensagens importantes do jogo são lidas em voz alta usando a voz **"Thalita" (Português do Brasil)** através da biblioteca `edge-tts`, proporcionando uma experiência mais imersiva.
 * **Duração da Aventura Ajustável:** Escolha entre aventuras Curtas, Médias ou Longas, cada uma com um número aproximado de turnos para guiar o ritmo da história.
 * **Opção de Estender a Aventura:** Ao final de uma aventura Curta ou Média, o jogador pode optar por continuar a jornada, estendendo-a para a próxima categoria de duração.
 * **Jogabilidade Interativa:** Interaja com o mundo através de comandos de texto, decidindo as ações do seu personagem.
@@ -16,12 +18,15 @@ Bem-vindo ao Mestre de RPG Dinâmico! Este projeto é um jogo de RPG (Role-Playi
 
 * Python 3.x
 * API Google Gemini (através da biblioteca `google-generativeai`)
+* `edge-tts` (para Text-to-Speech com a voz "Thalita")
+* `playsound` (para reprodução de áudio em execuções locais)
+* `nest_asyncio` (para compatibilidade com `asyncio` em ambientes de notebook como o Colab)
 
 ## Requisitos
 
-* Python 3.6 ou superior (para execução local).
+* Python 3.7 ou superior (recomendado para `asyncio` e `edge-tts`).
 * Uma Chave API válida do Google Gemini. Você pode obter uma em [Google AI Studio](https://aistudio.google.com/app/apikey).
-* Biblioteca Python `google-generativeai` (necessária para execução local, instalada pela primeira célula no Colab).
+* Bibliotecas Python: `google-generativeai`, `edge-tts`, `playsound`, `nest_asyncio`.
 
 ## Configuração e Instalação (para Execução Local)
 
@@ -32,20 +37,23 @@ Bem-vindo ao Mestre de RPG Dinâmico! Este projeto é um jogo de RPG (Role-Playi
     ```
 
 2.  **Instale as Dependências (para Execução Local):**
-    Abra o terminal ou prompt de comando e instale a biblioteca necessária:
+    Abra o terminal ou prompt de comando e instale as bibliotecas necessárias:
     ```bash
-    pip install google-generativeai
+    pip install google-generativeai edge-tts playsound nest_asyncio
     ```
+    *Nota: `edge-tts` pode requerer `ffmpeg` para algumas funcionalidades ou formatos, mas geralmente funciona bem para MP3 sem ele. `playsound` pode ter dependências específicas do sistema operacional para reprodução de MP3 (ex: `mpg123` ou `gstreamer` no Linux).*
 
 3.  **Configuração da Chave API (para Execução Local ou Colab sem arquivo salvo):**
     * Na primeira vez que você executar o script (localmente ou em uma nova sessão do Colab sem o arquivo `.gemini_api_key.txt`), ele solicitará que você insira sua Chave API do Google Gemini.
-    * Se uma chave válida for fornecida, o script tentará salvá-la em um arquivo chamado `.gemini_api_key.txt` no mesmo diretório do script (localmente) ou no diretório raiz da sessão do Colab. Isso evita que você precise inseri-la novamente nas próximas execuções *no mesmo ambiente onde o arquivo pode ser salvo e persistir*.
-    * **Importante (Git):** Se você estiver usando Git localmente, adicione `.gemini_api_key.txt` ao seu arquivo `.gitignore` para evitar enviar sua chave API para o GitHub. Exemplo de `.gitignore`:
+    * Se uma chave válida for fornecida, o script tentará salvá-la em um arquivo chamado `.gemini_api_key.txt`.
+    * **Importante (Git):** Adicione `.gemini_api_key.txt` ao seu arquivo `.gitignore` para evitar enviar sua chave API para o GitHub. Exemplo de `.gitignore`:
         ```
         .gemini_api_key.txt
         __pycache__/
         *.pyc
+        .temp_edge_speech.mp3 
         ```
+        (Adicionado `.temp_edge_speech.mp3` para o arquivo temporário de áudio)
 
 ## Como Jogar
 
@@ -53,98 +61,65 @@ Bem-vindo ao Mestre de RPG Dinâmico! Este projeto é um jogo de RPG (Role-Playi
 
 [![Abrir no Google Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JonJonesBR/MESTRE_RPG_GEMINI/blob/main/MESTRE_RPG_GEMINI_IA.ipynb)
 
-1.  **Abra o Notebook:** Clique no botão "Abrir no Google Colab" acima. O projeto será aberto diretamente no seu navegador.
-2.  **Estrutura do Notebook:** O código é organizado em duas células principais. Você precisará executá-las na ordem correta.
+1.  **Abra o Notebook:** Clique no botão "Abrir no Google Colab" acima.
+2.  **Estrutura do Notebook:** O código é organizado em duas células principais.
 
-3.  **Passo 1: Executar a Célula de Instalação da Biblioteca:**
-    * A primeira célula de código contém o comando: `!pip install -q google-generativeai`. Esta célula instala a biblioteca do Google Gemini necessária para o jogo.
-    * Para executar esta célula:
-        * Clique no ícone "Play" (um círculo com um triângulo apontando para a direita) que aparece à esquerda da célula.
-        * Ou, clique na célula para selecioná-la e pressione `Shift + Enter`.
-    * Aguarde a célula terminar sua execução. Você verá mensagens indicando que a instalação foi concluída.
+3.  **Passo 1: Executar a Célula de Instalação das Bibliotecas:**
+    * A primeira célula de código contém o comando:
+      ```python
+      !pip install -q google-generativeai edge-tts playsound nest_asyncio
+      ```
+    * Esta célula instala todas as bibliotecas necessárias para o jogo, incluindo o Text-to-Speech.
+    * Para executar: Clique no ícone "Play" à esquerda da célula ou selecione-a e pressione `Shift + Enter`. Aguarde a conclusão.
 
 4.  **Passo 2: Executar a Célula Principal do Jogo:**
-    * Após a instalação da biblioteca (Passo 1) ser concluída, vá para a segunda célula de código. Esta célula contém todo o script Python do jogo (configuração da API, definições de funções, lógica do jogo, etc.).
-    * Para executar esta célula e iniciar o jogo:
-        * Clique no ícone "Play" dela ou selecione a célula e pressione `Shift + Enter`.
-    * **Atenção à Chave API:** Se for a primeira vez executando nesta sessão do Colab ou se o arquivo `.gemini_api_key.txt` não for encontrado, o script irá parar e exibir um campo de entrada abaixo da célula, solicitando sua Chave API do Google Gemini. Cole sua chave e pressione Enter. Siga as instruções que aparecerem.
-    * Aguarde a célula terminar suas configurações iniciais. Você deverá ver mensagens como "API do Gemini configurada com sucesso." e "Modelo Gemini (...) configurado e pronto para a aventura!".
-    * Em seguida, o jogo começará, e você poderá interagir com o Mestre de RPG respondendo às perguntas sobre seu personagem, duração da aventura e, depois, digitando suas ações.
+    * Após a instalação (Passo 1), vá para a segunda célula de código. Ela contém todo o script Python do jogo.
+    * Para executar e iniciar o jogo: Clique no ícone "Play" ou selecione a célula e pressione `Shift + Enter`.
+    * **Atenção à Chave API:** Se for a primeira vez ou se a chave não estiver salva, o script solicitará sua Chave API do Google Gemini.
+    * Siga as instruções para criar seu personagem (nome, classe pré-definida ou inventada, duração da aventura).
+    * **O jogo usará Text-to-Speech para narrar as falas do Mestre.** O áudio deve tocar automaticamente.
 
 5.  **Alternativa (Executar Todas as Células de Uma Vez):**
-    * Se preferir, você pode executar todas as células do notebook em sequência.
-    * No menu superior do Colab, vá em `Ambiente de execução > Executar tudo`.
-    * Ou utilize o atalho de teclado: `Ctrl+F9` (em Windows/Linux) ou `Cmd+F9` (em Mac).
-    * O script irá instalar a biblioteca, depois parar para qualquer entrada necessária do usuário (como a Chave API, se solicitada, e então as interações do jogo).
+    * Menu: `Ambiente de execução > Executar tudo`.
+    * Atalho: `Ctrl+F9` (Windows/Linux) ou `Cmd+F9` (Mac).
+    * O script instalará as bibliotecas e depois parará para as entradas do usuário.
 
 ### Opção 2: Execução Local (em seu próprio computador)
 
-1.  **Obtenha o Código:**
-    * Clone o repositório (se ainda não o fez) ou baixe o arquivo `.py` (ou o conteúdo do notebook salvo como `.py`).
-2.  **Instale as Dependências (Primeira Vez):**
-    * Se ainda não o fez, abra seu terminal ou prompt de comando e instale a biblioteca:
-        ```bash
-        pip install google-generativeai
-        ```
+1.  **Obtenha o Código:** Clone o repositório ou baixe o arquivo `.py`.
+2.  **Instale as Dependências (Primeira Vez):** Se ainda não o fez, instale as bibliotecas conforme indicado na seção "Configuração e Instalação".
 3.  **Execute o Script:**
-    * Abra seu terminal ou prompt de comando.
-    * Navegue até o diretório onde o arquivo Python (`.py`) está localizado.
-    * Execute o script com o comando:
-        ```bash
-        python nome_do_arquivo.py
-        ```
-        (Substitua `nome_do_arquivo.py` pelo nome real do seu arquivo, por exemplo, `rpg_gemini.py`).
-
-4.  **Siga as Instruções no Jogo (Comum a Ambas as Opções):**
-    * O jogo solicitará sua Chave API (se não encontrada localmente/na sessão).
-    * Em seguida, pedirá o nome do seu personagem, a classe e a duração desejada para a aventura.
-    * Leia as narrações do Mestre-IA e digite suas ações quando solicitado.
-    * Para sair do jogo a qualquer momento, digite `sair` no prompt de ação.
+    ```bash
+    python nome_do_arquivo.py 
+    ```
+    (Substitua `nome_do_arquivo.py` pelo nome real do seu arquivo).
+4.  **Siga as Instruções no Jogo.**
 
 ## Como Funciona
 
-O jogo opera em um loop de turnos:
-1.  O jogador configura seu personagem e preferências da aventura (incluindo a chave API na primeira vez).
-2.  O script envia um prompt inicial para a API Gemini, que gera o cenário e a situação inicial.
-3.  A cada turno:
-    * O jogador descreve a ação que deseja realizar.
-    * Esta ação, juntamente com o estado atual do jogo (localização, inventário, objetivo, histórico recente), é formatada em um novo prompt.
-    * O prompt é enviado à API Gemini.
-    * A Gemini, atuando como Mestre, gera uma resposta narrativa descrevendo o resultado da ação, o novo estado do mundo e possíveis próximos passos.
-4.  O jogo possui um limite de turnos baseado na duração escolhida. Instruções específicas são enviadas ao Gemini para guiar a narrativa a uma conclusão apropriada dentro desse limite.
-5.  Ao atingir o limite de turnos de uma aventura "Curta" ou "Média", o jogador tem a opção de estender a aventura, atualizando o limite de turnos e o nome da duração.
+1.  **Configuração Inicial:** O jogador fornece sua chave API (se necessário), nome, escolhe uma classe (pré-definida ou personalizada) e a duração desejada para a aventura.
+2.  **Geração de Premissa pela IA:** O script solicita à API Gemini para criar um objetivo, localização e inventário iniciais exclusivos.
+3.  **Início da Narrativa:** Com base nesses elementos gerados, um prompt é enviado à Gemini para que ela comece a narrar o cenário e a situação inicial da aventura.
+4.  **Interação em Turnos:**
+    * O jogador digita suas ações.
+    * As ações, o estado do jogo e o histórico recente são enviados à Gemini.
+    * A Gemini (Mestre) responde com a progressão da história.
+    * As respostas do Mestre são exibidas como texto e lidas em voz alta.
+5.  **Controle de Duração:** O jogo acompanha os turnos. Instruções são enviadas à Gemini para guiar a história a uma conclusão dentro do limite de turnos da duração escolhida.
+6.  **Extensão da Aventura:** Ao final de aventuras "Curtas" ou "Médias", o jogador pode optar por estender a sessão.
 
 ## Customização (Opcional)
-
-* **Duração das Aventuras:** Você pode modificar o dicionário `DURATION_OPTIONS_CONFIG` no início do script para alterar os nomes, IDs e a contagem de turnos aproximada para as durações "Curta", "Média" e "Longa".
-    ```python
-    DURATION_OPTIONS_CONFIG = {
-        "1": {"name": "Curta (objetivo direto)", "id": "curta", "turns": 10}, 
-        "2": {"name": "Média (mais exploração)", "id": "media", "turns": 20},
-        "3": {"name": "Longa (desenvolvimento e clímax)", "id": "longa", "turns": 40}
-    }
-    ```
-* **Configurações do Modelo Gemini:** O objeto `generation_config` pode ser ajustado para alterar parâmetros como `temperature` (influencia a criatividade/aleatoriedade das respostas do Mestre).
-    ```python
-    generation_config = {
-        "temperature": 0.8, # Valores mais altos = mais criativo/inesperado
-        "top_p": 0.95,
-        "top_k": 40,
-    }
-    ```
+(Esta seção permanece a mesma, pois as opções de customização mencionadas ainda são válidas)
+...
 
 ## Possíveis Melhorias Futuras
-
-* Sistema de combate mais detalhado.
-* Gerenciamento de atributos e perícias do personagem.
-* Mapas ou representações visuais (mesmo que baseadas em texto).
-* Persistência de jogo mais robusta (salvar/carregar progresso entre sessões diferentes).
-* Interações com NPCs mais complexas e com memória de longo prazo aprimorada.
+(Esta seção permanece a mesma)
+...
 
 ## Contribuições
-
-Contribuições são bem-vindas! Sinta-se à vontade para abrir *issues* para relatar bugs ou sugerir novas funcionalidades. Se desejar contribuir com código, por favor, abra um *Pull Request*.
+(Esta seção permanece a mesma)
+...
 
 ## Licença
-
-Este projeto é distribuído sob a licença MIT. Veja o arquivo `LICENSE` para mais detalhes. (Você precisará criar um arquivo LICENSE com o texto da licença MIT, se desejar).
+(Esta seção permanece a mesma)
+...
