@@ -61,28 +61,17 @@ Bem-vindo ao Mestre de RPG Dinâmico! Este projeto é um jogo de RPG (Role-Playi
 [![Abrir no Google Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1DREJXthcCpMC-Lflmy8qGgXGCWLtomYu#scrollTo=D228-CeWCPM9)
 
 1.  **Abra o Notebook:** Clique no botão "Abrir no Google Colab" acima.
-2.  **Estrutura do Notebook:** O código no Colab é tipicamente organizado em células. A estrutura usual para este projeto é:
-    * Uma primeira célula para instalar as bibliotecas.
-    * Uma segunda célula contendo todo o código do jogo.
 
-3.  **Passo 1: Executar a Célula de Instalação das Bibliotecas:**
-    * A primeira célula de código deverá conter o comando:
-        ```python
-        !pip install -q google-generativeai edge-tts playsound nest_asyncio
-        ```
-    * Esta célula instala todas as bibliotecas necessárias.
+2.  **Passo 1: Executar a Célula com o Código do Script.**
+
     * Para executar: Clique no ícone "Play" (▶️) à esquerda da célula ou selecione-a e pressione `Shift + Enter`. Aguarde a conclusão.
 
-4.  **Passo 2: Executar a Célula Principal do Jogo:**
-    * Após a instalação (Passo 1), vá para a segunda célula de código, que contém todo o script Python do jogo.
-    * Para executar e iniciar o jogo: Clique no ícone "Play" dela ou selecione a célula e pressione `Shift + Enter`.
-    * **Atenção à Chave API:** Se for a primeira vez ou se a chave não estiver salva, o script solicitará sua Chave API do Google Gemini.
-    * Siga as instruções para criar seu personagem (nome, classe, duração da aventura).
-    * O jogo usará Text-to-Speech para narrar as falas do Mestre. O áudio deve tocar automaticamente.
 
-5.  **Alternativa (Executar Todas as Células de Uma Vez):**
-    * Menu: `Ambiente de execução > Executar tudo`.
-    * Atalho: `Ctrl+F9` (Windows/Linux) ou `Cmd+F9` (Mac).
+    * **Atenção à Chave API:** Se for a primeira vez ou se a chave não estiver salva, o script solicitará sua Chave API do Google Gemini.
+
+    * Siga as instruções para criar seu personagem (nome, classe, duração da aventura).
+
+    * O jogo usará Text-to-Speech para narrar as falas do Mestre. O áudio deve tocar automaticamente.
 
 ### Opção 2: Execução Local (em seu próprio computador)
 
@@ -98,18 +87,35 @@ Bem-vindo ao Mestre de RPG Dinâmico! Este projeto é um jogo de RPG (Role-Playi
 ## Como Funciona
 
 1.  **Configuração Inicial:** O jogador fornece sua chave API (se necessário), nome, escolhe uma classe (pré-definida ou **personalizada**) e a duração desejada para a aventura.
+
 2.  **Geração de Premissa pela IA:** O script solicita à API Gemini para criar um **objetivo, localização e inventário iniciais** exclusivos para a aventura.
+
 3.  **Início da Narrativa:** Com base nesses elementos gerados, um prompt é enviado à API Gemini para que ela comece a narrar o cenário e a situação inicial.
+
 4.  **Interação em Turnos:**
+
     * O jogador digita suas ações.
+
     * As ações, o estado do jogo e o histórico recente são enviados à Gemini.
+
     * A Gemini (Mestre) responde com a progressão da história.
+
     * As respostas do Mestre são exibidas como texto e também **lidas em voz alta (TTS)**.
-5.  **Controle de Duração e Extensão:** O jogo acompanha os turnos. Instruções são enviadas à Gemini para guiar a história a uma conclusão. Ao final de aventuras "Curtas" ou "Médias", o jogador pode optar por estender a sessão.
+
+5.  **Controle de Duração e Extensão:** 
+
+O jogo acompanha os turnos.
+
+Instruções são enviadas à Gemini para guiar a história a uma conclusão. 
+
+Ao final de aventuras "Curtas" ou "Médias", o jogador pode optar por estender a sessão.
 
 ## Customização (Opcional)
 
-* **Duração das Aventuras:** Modifique o dicionário `DURATION_OPTIONS_CONFIG` no início do script.
+* **Duração das Aventuras:**
+
+ Modifique o dicionário `DURATION_OPTIONS_CONFIG` no início do script.
+
     ```python
     DURATION_OPTIONS_CONFIG = {
         "1": {"name": "Curta (objetivo direto)", "id": "curta", "turns": 10}, 
@@ -117,7 +123,10 @@ Bem-vindo ao Mestre de RPG Dinâmico! Este projeto é um jogo de RPG (Role-Playi
         "3": {"name": "Longa (desenvolvimento e clímax)", "id": "longa", "turns": 40}
     }
     ```
-* **Configurações do Modelo Gemini:** Ajuste o objeto `generation_config` (ex: `temperature`).
+* **Configurações do Modelo Gemini:** 
+
+Ajuste o objeto `generation_config` (ex: `temperature`).
+
     ```python
     generation_config = {
         "temperature": 0.8,
@@ -125,14 +134,20 @@ Bem-vindo ao Mestre de RPG Dinâmico! Este projeto é um jogo de RPG (Role-Playi
         "top_k": 40,
     }
     ```
-* **Voz do TTS:** Na função `speak_text`, você pode alterar o parâmetro `voice_name` se desejar experimentar outras vozes do `edge-tts` (ex: `pt-BR-FranciscaNeural` ou outras de diferentes idiomas/sotaques).
+* **Voz do TTS:** 
+
+Na função `speak_text`, você pode alterar o parâmetro `voice_name` se desejar experimentar outras vozes do `edge-tts` (ex: `pt-BR-FranciscaNeural` ou outras de diferentes idiomas/sotaques).
 
 ## Possíveis Melhorias Futuras
 
 * Sistema de combate mais detalhado.
+
 * Gerenciamento de atributos e perícias do personagem.
+
 * Mapas ou representações visuais (mesmo que baseadas em texto).
+
 * Persistência de jogo mais robusta (salvar/carregar progresso).
+
 * Interações com NPCs mais complexas e com memória de longo prazo aprimorada.
 
 ## Contribuições
