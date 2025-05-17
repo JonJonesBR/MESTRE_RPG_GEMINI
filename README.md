@@ -4,15 +4,41 @@ Bem-vindo ao Mestre de RPG Dinâmico! Este projeto é um jogo de RPG (Role-Playi
 
 ## Funcionalidades Principais
 
-* **Mestre Inteligente (IA):** Utiliza o poder da Google Gemini para gerar descrições de cenários, NPCs (personagens não-jogadores), desafios e consequências das ações do jogador de forma dinâmica.
-* **Geração Aleatória de Início de Aventura:** Objetivo, localização e inventário iniciais são criados pela IA para maior rejogabilidade e surpresa a cada nova partida.
-* **Criação de Personagem Flexível:** Permite ao jogador definir o nome e escolher uma classe de uma lista pré-definida ou **inventar a sua própria classe personalizada**.
-* **Narração em Áudio (Text-to-Speech):** As principais narrações do Mestre e mensagens importantes do jogo são lidas em voz alta usando a voz **"Thalita" (Português do Brasil)** através da biblioteca `edge-tts`, proporcionando uma experiência mais imersiva.
-* **Duração da Aventura Ajustável:** Escolha entre aventuras Curtas, Médias ou Longas, cada uma com um número aproximado de turnos para guiar o ritmo da história.
-* **Opção de Estender a Aventura:** Ao final de uma aventura Curta ou Média, o jogador pode optar por continuar a jornada, estendendo-a para a próxima categoria de duração.
-* **Jogabilidade Interativa:** Interaja com o mundo através de comandos de texto, decidindo as ações do seu personagem.
-* **Respostas Contextuais:** O Mestre-IA leva em consideração o histórico de ações e o estado atual do jogo para gerar respostas coerentes.
-* **Gerenciamento de Chave API:** Solicita a chave API do Google Gemini ao usuário na primeira execução e a salva localmente (em um arquivo `.gemini_api_key.txt`) para facilitar usos futuros no mesmo ambiente.
+* **Mestre Inteligente (IA):**
+
+ Utiliza o poder da Google Gemini para gerar descrições de cenários, NPCs (personagens não-jogadores), desafios e consequências das ações do jogador de forma dinâmica.
+
+* **Geração Aleatória de Início de Aventura:** 
+
+Objetivo, localização e inventário iniciais são criados pela IA para maior rejogabilidade e surpresa a cada nova partida.
+
+* **Criação de Personagem Flexível:** 
+
+Permite ao jogador definir o nome e escolher uma classe de uma lista pré-definida ou **inventar a sua própria classe personalizada**.
+
+* **Narração em Áudio (Text-to-Speech):** 
+
+As principais narrações do Mestre e mensagens importantes do jogo são lidas em voz alta usando a voz **"Thalita" (Português do Brasil)** através da biblioteca `edge-tts`, proporcionando uma experiência mais imersiva.
+
+* **Duração da Aventura Ajustável:** 
+
+Escolha entre aventuras Curtas, Médias ou Longas, cada uma com um número aproximado de turnos para guiar o ritmo da história.
+
+* **Opção de Estender a Aventura:** 
+
+Ao final de uma aventura Curta ou Média, o jogador pode optar por continuar a jornada, estendendo-a para a próxima categoria de duração.
+
+* **Jogabilidade Interativa:** 
+
+Interaja com o mundo através de comandos de texto, decidindo as ações do seu personagem.
+
+* **Respostas Contextuais:** 
+
+O Mestre-IA leva em consideração o histórico de ações e o estado atual do jogo para gerar respostas coerentes.
+
+* **Gerenciamento de Chave API:** 
+
+Solicita a chave API do Google Gemini ao usuário na primeira execução e a salva localmente (em um arquivo `.gemini_api_key.txt`) para facilitar usos futuros no mesmo ambiente.
 
 ## Tecnologias Utilizadas
 
