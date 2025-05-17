@@ -21,7 +21,7 @@ Bem-vindo ao Mestre de RPG Dinâmico! Este projeto é um jogo de RPG (Role-Playi
 
 * Python 3.6 ou superior (para execução local).
 * Uma Chave API válida do Google Gemini. Você pode obter uma em [Google AI Studio](https://aistudio.google.com/app/apikey).
-* Biblioteca Python `google-generativeai` (necessária para execução local, já inclusa no ambiente Colab geralmente).
+* Biblioteca Python `google-generativeai` (necessária para execução local, instalada pela primeira célula no Colab).
 
 ## Configuração e Instalação (para Execução Local)
 
@@ -54,41 +54,48 @@ Bem-vindo ao Mestre de RPG Dinâmico! Este projeto é um jogo de RPG (Role-Playi
 [![Abrir no Google Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JonJonesBR/MESTRE_RPG_GEMINI/blob/main/MESTRE_RPG_GEMINI_IA.ipynb)
 
 1.  **Abra o Notebook:** Clique no botão "Abrir no Google Colab" acima. O projeto será aberto diretamente no seu navegador.
-2.  **Estrutura do Notebook:** O código é organizado em células. Você precisará executar as células na ordem correta.
-3.  **Passo 1: Executar a Célula de Configurações e Definições:**
-    * A primeira célula de código extensa contém todas as importações de bibliotecas, a lógica para configurar a chave API, as definições de constantes (como `DURATION_OPTIONS_CONFIG`), as configurações do modelo Gemini e todas as definições de funções do jogo (`get_and_configure_api_key`, `iniciar_aventura`, `rodada_do_jogo`, etc.).
-    * Para executar esta célula:
-        * Clique no ícone "Play" (um círculo com um triângulo apontando para a direita) que aparece à esquerda da célula quando você passa o mouse sobre ela.
-        * Ou, clique na célula para selecioná-la e pressione `Shift + Enter`.
-    * **Atenção à Chave API:** Se for a primeira vez executando nesta sessão do Colab ou se o arquivo `.gemini_api_key.txt` não for encontrado, o script irá parar e exibir um campo de entrada abaixo da célula, solicitando sua Chave API do Google Gemini. Cole sua chave e pressione Enter. Siga as instruções que aparecerem.
-    * Aguarde a célula terminar sua execução. Você deverá ver mensagens como "API do Gemini configurada com sucesso." e "Modelo Gemini (...) configurado e pronto para a aventura!".
+2.  **Estrutura do Notebook:** O código é organizado em duas células principais. Você precisará executá-las na ordem correta.
 
-4.  **Passo 2: Executar a Célula do Loop Principal do Jogo:**
-    * Após a célula de definições ser executada com sucesso, role para baixo até encontrar a próxima (e geralmente última) célula de código. Esta célula contém o bloco `try...except...finally` que chama `iniciar_aventura()` e depois entra no loop `while jogando: jogando = rodada_do_jogo()`.
+3.  **Passo 1: Executar a Célula de Instalação da Biblioteca:**
+    * A primeira célula de código contém o comando: `!pip install -q google-generativeai`. Esta célula instala a biblioteca do Google Gemini necessária para o jogo.
+    * Para executar esta célula:
+        * Clique no ícone "Play" (um círculo com um triângulo apontando para a direita) que aparece à esquerda da célula.
+        * Ou, clique na célula para selecioná-la e pressione `Shift + Enter`.
+    * Aguarde a célula terminar sua execução. Você verá mensagens indicando que a instalação foi concluída.
+
+4.  **Passo 2: Executar a Célula Principal do Jogo:**
+    * Após a instalação da biblioteca (Passo 1) ser concluída, vá para a segunda célula de código. Esta célula contém todo o script Python do jogo (configuração da API, definições de funções, lógica do jogo, etc.).
     * Para executar esta célula e iniciar o jogo:
         * Clique no ícone "Play" dela ou selecione a célula e pressione `Shift + Enter`.
-    * O jogo começará, e você poderá interagir com o Mestre de RPG respondendo às perguntas sobre seu personagem, duração da aventura e, em seguida, digitando suas ações.
+    * **Atenção à Chave API:** Se for a primeira vez executando nesta sessão do Colab ou se o arquivo `.gemini_api_key.txt` não for encontrado, o script irá parar e exibir um campo de entrada abaixo da célula, solicitando sua Chave API do Google Gemini. Cole sua chave e pressione Enter. Siga as instruções que aparecerem.
+    * Aguarde a célula terminar suas configurações iniciais. Você deverá ver mensagens como "API do Gemini configurada com sucesso." e "Modelo Gemini (...) configurado e pronto para a aventura!".
+    * Em seguida, o jogo começará, e você poderá interagir com o Mestre de RPG respondendo às perguntas sobre seu personagem, duração da aventura e, depois, digitando suas ações.
 
 5.  **Alternativa (Executar Todas as Células de Uma Vez):**
     * Se preferir, você pode executar todas as células do notebook em sequência.
     * No menu superior do Colab, vá em `Ambiente de execução > Executar tudo`.
     * Ou utilize o atalho de teclado: `Ctrl+F9` (em Windows/Linux) ou `Cmd+F9` (em Mac).
-    * O script irá parar automaticamente para qualquer entrada necessária do usuário (como a Chave API, se solicitada, e depois as interações do jogo).
+    * O script irá instalar a biblioteca, depois parar para qualquer entrada necessária do usuário (como a Chave API, se solicitada, e então as interações do jogo).
 
 ### Opção 2: Execução Local (em seu próprio computador)
 
 1.  **Obtenha o Código:**
     * Clone o repositório (se ainda não o fez) ou baixe o arquivo `.py` (ou o conteúdo do notebook salvo como `.py`).
-2.  **Execute o Script:**
+2.  **Instale as Dependências (Primeira Vez):**
+    * Se ainda não o fez, abra seu terminal ou prompt de comando e instale a biblioteca:
+        ```bash
+        pip install google-generativeai
+        ```
+3.  **Execute o Script:**
     * Abra seu terminal ou prompt de comando.
     * Navegue até o diretório onde o arquivo Python (`.py`) está localizado.
     * Execute o script com o comando:
         ```bash
-        python nome_do_arquivo.py 
+        python nome_do_arquivo.py
         ```
         (Substitua `nome_do_arquivo.py` pelo nome real do seu arquivo, por exemplo, `rpg_gemini.py`).
 
-3.  **Siga as Instruções no Jogo (Comum a Ambas as Opções):**
+4.  **Siga as Instruções no Jogo (Comum a Ambas as Opções):**
     * O jogo solicitará sua Chave API (se não encontrada localmente/na sessão).
     * Em seguida, pedirá o nome do seu personagem, a classe e a duração desejada para a aventura.
     * Leia as narrações do Mestre-IA e digite suas ações quando solicitado.
