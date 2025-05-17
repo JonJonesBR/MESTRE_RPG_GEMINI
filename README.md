@@ -1,6 +1,8 @@
 # Mestre de RPG Dinâmico com Google Gemini
 
-Bem-vindo ao Mestre de RPG Dinâmico! Este projeto é um jogo de RPG (Role-Playing Game) baseado em texto onde a API Google Gemini atua como o Mestre do Jogo (Game Master - GM), criando narrativas interativas e adaptáveis em tempo real. Prepare-se para aventuras únicas a cada jogada, agora com narração em voz alta!
+Bem-vindo ao Mestre de RPG Dinâmico! Este projeto é um jogo de RPG (Role-Playing Game) baseado em texto onde a API Google Gemini atua como o Mestre do Jogo (Game Master - GM), criando narrativas interativas e adaptáveis em tempo real.
+
+ Prepare-se para aventuras únicas a cada jogada, agora com narração em voz alta!
 
 ## Funcionalidades Principais
 
