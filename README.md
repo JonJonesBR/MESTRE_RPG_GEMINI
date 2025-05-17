@@ -59,7 +59,7 @@ Bem-vindo ao Mestre de RPG Dinâmico! Este projeto é um jogo de RPG (Role-Playi
 
 ### Opção 1: Executar no Google Colab (Recomendado para Facilidade)
 
-[![Abrir no Google Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JonJonesBR/MESTRE_RPG_GEMINI/blob/main/MESTRE_RPG_GEMINI_IA.ipynb)
+[![Abrir no Google Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1DREJXthcCpMC-Lflmy8qGgXGCWLtomYu#scrollTo=D228-CeWCPM9)
 
 1.  **Abra o Notebook:** Clique no botão "Abrir no Google Colab" acima.
 2.  **Estrutura do Notebook:** O código é organizado em duas células principais.
