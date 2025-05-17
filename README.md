@@ -60,7 +60,7 @@ Bem-vindo ao Mestre de RPG Dinâmico! Este projeto é um jogo de RPG (Role-Playi
 
 [![Abrir no Google Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1DREJXthcCpMC-Lflmy8qGgXGCWLtomYu#scrollTo=D228-CeWCPM9)
 
-1.  **Abra o Notebook:** Clique no botão "Abrir no Google Colab" acima (ou no link alternativo para o Drive, se aplicável).
+1.  **Abra o Notebook:** Clique no botão "Abrir no Google Colab" acima.
 2.  **Estrutura do Notebook:** O código no Colab é tipicamente organizado em células. A estrutura usual para este projeto é:
     * Uma primeira célula para instalar as bibliotecas.
     * Uma segunda célula contendo todo o código do jogo.
