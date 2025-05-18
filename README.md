@@ -57,13 +57,15 @@ Antes de começar, você precisará de uma chave API do Google Gemini.
 
  Certifique-se de que sua chave API tenha permissão para usar este modelo ou ajuste a variável `MODEL_NAME_TEXT` no script para um modelo ao qual você tenha acesso (ex: `gemini-1.5-flash-latest`).
 
-### 2. Preparando o Ambiente no Google Colab
+### 2. Executando o Game no Google Colab
 
 * **Abra o Google Colab:** 
 
-Vá para [https://colab.research.google.com/](https://colab.research.google.com/) e crie um novo notebook (`File > New notebook`).
+    * Clique no seguinte link para abrir o notebook diretamente no Google Colab a partir do repositório GitHub:
 
-* **Copie o Código:** Copie todo o código Python do script deste RPG e cole-o em uma única célula de código no seu novo notebook Colab.
+        [Abrir RPG_AUDIO.ipynb no Colab](https://colab.research.google.com/github/JonJonesBR/MESTRE_RPG_GEMINI/blob/main/RPG_AUDIO.ipynb)
+
+    * Se solicitado, autorize o Colab a acessar arquivos do GitHub.
 
 ### 3. Executando o Script
 
