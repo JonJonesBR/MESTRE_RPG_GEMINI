@@ -59,11 +59,13 @@ Antes de começar, você precisará de uma chave API do Google Gemini.
 
 ### 2. Executando o Game no Google Colab
 
-* **Abra o Google Colab:** 
+* **Abra o Projeto no Google Colab:**
 
-    * Clique no seguinte link para abrir o notebook diretamente no Google Colab a partir do repositório GitHub:
+   [LINK DO PROJETO](https://colab.research.google.com/github/JonJonesBR/MESTRE_RPG_GEMINI/blob/main/RPG_AUDIO.ipynb)
 
-        [Abrir RPG_AUDIO.ipynb no Colab](https://colab.research.google.com/github/JonJonesBR/MESTRE_RPG_GEMINI/blob/main/RPG_AUDIO.ipynb)
+* Clique no link abaixo para abrir o notebook diretamente no Google Colab a partir do repositório GitHub:
+
+  [Abrir RPG_AUDIO.ipynb no Colab](https://colab.research.google.com/github/JonJonesBR/MESTRE_RPG_GEMINI/blob/main/RPG_AUDIO.ipynb)
 
     * Se solicitado, autorize o Colab a acessar arquivos do GitHub.
 
